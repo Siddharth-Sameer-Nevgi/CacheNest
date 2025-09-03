@@ -180,119 +180,124 @@ export default function Dashboard() {
   return (
     <div className={styles.page}>
       <Navbar />
-      <main className={styles.homeMain}>
-        <header className={styles.homeHeader}>
-          <h1>Welcome {user}</h1>
-          <button className={styles.addButton} onClick={() => openModal()}>
-            <FaPlus /> Add Task
-          </button>
-        </header>
+      <div className={styles.dashboardContainer}>
 
-        <section className={styles.filterPart}>
-          <h2>
-            <FaFilter /> Filters
-          </h2>
-          <div className={styles.filterFeature}>
-            <div className={styles.filterGroup}>
-              <label>Status</label>
-              <select
-                name="status"
-                value={filters.status}
-                onChange={handleFilterChange}
-              >
-                <option value="All">All</option>
-                <option value="Completed">Completed</option>
-                <option value="Pending">Pending</option>
-              </select>
-            </div>
-            <div className={styles.filterGroup}>
-              <label>Priority</label>
-              <select
-                name="priority"
-                value={filters.priority}
-                onChange={handleFilterChange}
-              >
-                <option value="All">All</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-              </select>
-            </div>
-            <div className={styles.filterGroup}>
-              <label>Category</label>
-              <select
-                name="category"
-                value={filters.category}
-                onChange={handleFilterChange}
-              >
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.taskList}>
-          {isLoading ? (
-            <p className={styles.noTasks}>Loading tasks...</p>
-          ) : filteredTasks.length > 0 ? (
-            filteredTasks.map((task) => (
-              <div
-                key={task._id}
-                className={`${styles.taskCard} ${
-                  task.completed ? styles.completed : ""
-                }`}
-              >
-                <div className={styles.taskHeader}>
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => toggleComplete(task._id)}
-                    className={styles.taskCheckbox}
-                  />
-                  <h3 className={styles.taskTitle}>{task.taskname}</h3>
-                </div>
-                <p className={styles.taskDescription}>{task.description}</p>
-                <div className={styles.taskMeta}>
-                  <span
-                    className={`${styles.badge} ${
-                      styles[`priority${task.priority}`]
-                    }`}
-                  >
-                    {task.priority}
-                  </span>
-                  {task.category && (
-                    <span className={styles.badge}>{task.category}</span>
-                  )}
-                  {task.due && (
-                    <span className={styles.badge}>
-                      {new Date(task.due).toLocaleDateString()}
-                    </span>
-                  )}
-                </div>
-                <div className={styles.taskActions}>
-                  <button onClick={() => openModal(task)} title="Edit Task">
-                    <FaEdit />
-                  </button>
-                  <button
-                    onClick={() => deleteTask(task._id)}
-                    title="Delete Task"
-                  >
-                    <FaTrash />
-                  </button>
-                </div>
+        <aside className={styles.sidebar}>
+          <section className={styles.filterPart}>
+            <h2>
+              <FaFilter /> Filters
+            </h2>
+            <div className={styles.filterFeature}>
+              <div className={styles.filterGroup}>
+                <label>Status</label>
+                <select
+                  name="status"
+                  value={filters.status}
+                  onChange={handleFilterChange}
+                >
+                  <option value="All">All</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Pending">Pending</option>
+                </select>
               </div>
-            ))
-          ) : (
-            <p className={styles.noTasks}>
-              No tasks found. Try adjusting your filters or adding a new task!
-            </p>
-          )}
-        </section>
-      </main>
+              <div className={styles.filterGroup}>
+                <label>Priority</label>
+                <select
+                  name="priority"
+                  value={filters.priority}
+                  onChange={handleFilterChange}
+                >
+                  <option value="All">All</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </div>
+              <div className={styles.filterGroup}>
+                <label>Category</label>
+                <select
+                  name="category"
+                  value={filters.category}
+                  onChange={handleFilterChange}
+                >
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        <main className={styles.homeMain}>
+          <header className={styles.homeHeader}>
+            <h1>Welcome Back, {user?user.toUpperCase() : "User"}</h1>
+            <button className={styles.addButton} onClick={() => openModal()}>
+              <FaPlus /> Add Task
+            </button>
+          </header>
+
+          <section className={styles.taskList}>
+            {isLoading ? (
+              <p className={styles.noTasks}>Loading tasks...</p>
+            ) : filteredTasks.length > 0 ? (
+              filteredTasks.map((task) => (
+                <div
+                  key={task._id}
+                  className={`${styles.taskCard} ${
+                    task.completed ? styles.completed : ""
+                  }`}
+                >
+                  <div className={styles.taskHeader}>
+                    <input
+                      type="checkbox"
+                      checked={task.completed}
+                      onChange={() => toggleComplete(task._id)}
+                      className={styles.taskCheckbox}
+                    />
+                    <h3 className={styles.taskTitle}>{task.taskname}</h3>
+                    <div className={styles.taskActions}>
+                      <button onClick={() => openModal(task)} title="Edit Task">
+                        <FaEdit />
+                      </button>
+                      <button
+                        onClick={() => deleteTask(task._id)}
+                        title="Delete Task"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </div>
+                  <p className={styles.taskDescription}>{task.description}</p>
+                  <div className={styles.taskMeta}>
+                    <span
+                      className={`${styles.badge} ${
+                        styles[`priority${task.priority}`]
+                      }`}
+                    >
+                      {task.priority}
+                    </span>
+                    {task.category && (
+                      <span className={styles.badge}>{task.category}</span>
+                    )}
+                    {task.due && (
+                      <span className={styles.badge}>
+                        {new Date(task.due).toLocaleDateString()}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className={styles.noTasks}>
+                No tasks found.
+              </p>
+            )}
+          </section>
+        </main>
+      </div>
 
       {isModalOpen && (
         <div className={styles.modalOverlay}>
