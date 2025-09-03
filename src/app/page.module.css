@@ -846,16 +846,87 @@ body.dark .priorityLow { background-color: #004d4d; color: #a3f7e8; }
 @media (max-width: 768px) {
   .dashboardContainer {
     flex-direction: column;
+    height: auto; /* Let content define height */
   }
   .sidebar {
     width: 100%;
+    height: auto; /* Adjust height for content */
     border-right: none;
     border-bottom: 1px solid var(--form-border);
+    padding: 1.5rem;
   }
   .homeMain {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
+  }
+  .homeHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
   .homeHeader h1 {
     font-size: 1.75rem;
+  }
+  .taskHeader {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .taskTitle {
+    flex-basis: 100%; /* Ensure title takes full width */
+    order: -1; /* Place it before the checkbox in flow */
+  }
+  .taskCheckbox {
+    margin-top: 4px; /* Align checkbox better with actions */
+  }
+  .taskActions {
+    margin-left: 0;
+    padding-left: 36px; /* Align with meta/description */
+  }
+}
+
+@media (max-width: 480px) {
+  .navRight {
+    gap: 0.5rem;
+  }
+  .homeMain {
+    padding: 1rem;
+  }
+  .homeHeader h1 {
+    font-size: 1.5rem;
+  }
+  .primaryButton, .addButton {
+    width: 100%;
+    justify-content: center;
+  }
+  .filterFeature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .taskCard {
+    padding: 1rem;
+  }
+  .taskDescription, .taskMeta, .taskActions {
+    padding-left: 30px;
+  }
+  .taskCheckbox {
+    width: 18px;
+    height: 18px;
+  }
+  .modalContent {
+    padding: 1.5rem;
+  }
+  .modalContent h2 {
+    font-size: 1.5rem;
+  }
+  .modalActions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .modalActions button {
+    width: 100%;
+    margin: 0;
+  }
+  .secondaryButton {
+    order: 1;
   }
 }
