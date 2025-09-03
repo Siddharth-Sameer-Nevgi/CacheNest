@@ -51,7 +51,7 @@ export default function Navbar() {
       <div className={styles.navLeft}>
         <div className={styles.logoContainer}>
           <img
-            src="/logo.svg"
+            src="https://www.shutterstock.com/image-vector/check-list-icon-vector-symbol-600nw-2477440299.jpg"
             alt="CacheNest Logo"
             width={40}
             height={40}
@@ -66,12 +66,11 @@ export default function Navbar() {
           className={styles.themeToggle}
           aria-label="Toggle theme"
         >
-          {theme === "dark" ? "☀️" : "🌙"}
+          {theme === "dark" ? "🔆" : "🌙"}
         </button>
 
         {isLoggedIn ? (
           <div className={styles.userSection}>
-            <span className={styles.userWelcome}>Welcome, {userInfo.username}</span>
             <button
               className={`${styles.navButton} ${styles.logoutButton}`}
               onClick={async () => {
