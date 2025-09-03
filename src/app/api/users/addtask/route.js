@@ -26,6 +26,15 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+    if (due) {
+      const today = new Date();
+      if (new Date(due) < today) {
+        return NextResponse.json(
+          { error: "Due date cannot be in the past" },
+          { status: 400 }
+        );
+      }
+    }
 
     let userTasks = await Task.findOne({ email: userEmail });
 

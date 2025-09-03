@@ -311,7 +311,7 @@ export default function Dashboard() {
                   name="taskname"
                   value={taskData.taskname}
                   onChange={handleInputChange}
-                  placeholder="e.g., Finish the report"
+                  placeholder="Task title"
                   required
                   className={styles.formInput}
                 />
@@ -322,7 +322,7 @@ export default function Dashboard() {
                   name="description"
                   value={taskData.description}
                   onChange={handleInputChange}
-                  placeholder="e.g., Add final charts and proofread"
+                  placeholder="More about the task"
                   className={styles.formInput}
                   rows="3"
                 ></textarea>

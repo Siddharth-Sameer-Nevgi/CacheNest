@@ -32,6 +32,15 @@ export async function PUT(request) {
         { status: 400 }
       );
     }
+    if (updateData.due) {
+      const today = new Date();
+      if (new Date(updateData.due) < today) {
+        return NextResponse.json(
+          { error: "Due date cannot be in the past" },
+          { status: 400 }
+        );
+      }
+    }
 
     const userTasks = await Task.findOne({ email: userEmail });
     if (!userTasks) {
